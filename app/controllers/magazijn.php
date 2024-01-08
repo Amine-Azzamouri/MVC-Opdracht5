@@ -6,29 +6,33 @@ class Magazijn extends BaseController
 
     public function __construct()
     {
-        $this->MagazijnModel = $this->model('MagazijnModel');
+        $this->magazijnModel = $this->model('MagazijnModel');
     }
 
     public function overzichtMagazijn()
     {
-        $result = $this->MagazijnModel->getMagazijnInfo();
+        $result = $this->magazijnModel->getMagazijnInfo();
 
-          var_dump($result);
+          //var_dump($result);
         $rows = "";
         foreach ($result as $MagazijnInfo) {
             
 
             $rows .= "<tr>
-                        <td>$MagazijnInfo-> </td>
-                        <td>$MagazijnInfo-> </td>
-                        <td>$MagazijnInfo-> </td>
-                        <td>$MagazijnInfo-> </td>
-                        <td>$MagazijnInfo-> </td>            
+                        <td>$MagazijnInfo->Barcode</td>
+                        <td>$MagazijnInfo->Naam</td>
+                        <td>$MagazijnInfo->VerpakkingsEenheid</td>
+                        <td>$MagazijnInfo->AantalAanwezig</td>
                         <td>
-                            <a href='" . URLROOT . "/instructeur/overzichtvoertuigen/$instructeur->Id'>
-                                <i class='bi bi-car-front'></i>
+                            <a href='" . URLROOT . "/Magazijn/overzichtMagazijn/$MagazijnInfo->MagazijnId'>
+                                <i class='bi bi-x'></i>
                             </a>
-                        </td>            
+                        </td>
+                        <td>
+                        <a href='" . URLROOT . "/Magazijn/overzichtMagazijn/$MagazijnInfo->MagazijnId'>
+                        <i class='bi bi-question'></i>
+                        </a>
+                    </td>             
                       </tr>";
         }
         

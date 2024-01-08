@@ -1,15 +1,36 @@
+/* Font */
 body {
-    font-family: Verdana;
+    font-family: Verdana, sans-serif;
 }
 
+/* Table Styling */
 table {
-    border: 2px solid gray;
+    width: 100%;
     border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     margin-top: 1em;
-    text-align: left;
 }
 
 th, td {
-    border: 2px solid gray;
-    padding:.6em;
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+}
+
+/* Header Styles */
+th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+/* Alternate Row Colors */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Hover Effect */
+tr:hover {
+    background-color: #e9e9e9;
 }

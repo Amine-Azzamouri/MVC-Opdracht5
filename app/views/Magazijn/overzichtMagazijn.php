@@ -22,7 +22,7 @@
             <th>Leverancier Info </th>
         </thead>
         <tbody>
-            <?= $data['tableRows']; ?>
+            <?= $data['rows']; ?>
         </tbody>
     </table>
 
