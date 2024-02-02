@@ -85,7 +85,6 @@ class Magazijn extends BaseController
 
     public function overzichtLeverancier($Id = NULL) {
         $result = $this->magazijnModel->getLeverancierInfo($Id);
-        //var_dump($result);
         $rows = "";
     
         if ($result) {
