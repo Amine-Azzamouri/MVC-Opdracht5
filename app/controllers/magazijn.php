@@ -85,10 +85,25 @@ class Magazijn extends BaseController
 
     public function overzichtLeverancier($Id = NULL) {
         $result = $this->magazijnModel->getLeverancierInfo($Id);
-        var_dump($result);
+        //var_dump($result);
         $rows = "";
     
         if ($result) {
+            if ($result[0]->AantalAanwezig === null) 
+            {
+                $data = [
+                    'title' => 'Leverings Informatie',
+                    'barcode' => '', 
+                    'name' => '',    
+                    'rows' => '<tr><td colspan="4">Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is ' . $result[0]->DatumEerstVolgendeLevering .'</td></tr>'
+                ];
+
+                echo '<script>
+                setTimeout(function(){
+                    window.location.href = "http://www.jamin.nl/Magazijn/overzichtMagazijn"; 
+                }, 4000); 
+              </script>';
+            } else {
             foreach ($result as $LeverancierInfo) {
                 $rows .= "<tr>
                             <td>$LeverancierInfo->ProductNaam</td>
@@ -105,23 +120,9 @@ class Magazijn extends BaseController
                 'LeverancierNummer' => $LeverancierInfo->LeverancierNummer,
                 'Mobiel' => $LeverancierInfo->LeverancierMobiel,
                 'rows' => $rows,
-            ];
-        } elseif ($result[0]->AantalAanwezig === null) {
-            echo'test';
-            $data = [
-                'title' => 'Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is ' . $LeverancierInfo->DatumEerstVolgendeLevering,
-                'barcode' => '', 
-                'name' => '',    
-                'rows' => $rows,
-            ];
-    
+            ]; }
+
             $this->view('Magazijn/overzichtLeverancier', $data);
-    
-            echo '<script>
-                    setTimeout(function(){
-                        window.location.href = "http://www.jamin.nl/Magazijn/overzichtMagazijn"; 
-                    }, 4000); 
-                  </script>';
     
             return; 
         }
