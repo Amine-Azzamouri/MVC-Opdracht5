@@ -12,16 +12,29 @@
   <body>
     
     <h3><u><?= $data['title']; ?></u></h3>
-    
+
+    <?php if (isset($data['NaamLeverancier'])) : ?>
+        <p>Naam Leverancier: [ <?= $data['NaamLeverancier'] ?> ]</p>
+    <?php endif; ?>
+
+    <?php if (isset($data['ContactPersoon leverancier'])) : ?>
+        <p>Contactpersoon Leverancier: [ <?= $data['ContactPersoon leverancier'] ?> ]</p>
+    <?php endif; ?>
+
+    <?php if (isset($data['LeverancierNummer'])) : ?>
+        <p>Leveranciernummer: [ <?= $data['LeverancierNummer'] ?> ]</p>
+    <?php endif; ?>
+
+    <?php if (isset($data['Mobiel'])) : ?>
+        <p>Mobiel: [ <?= $data['Mobiel'] ?> ]</p>
+    <?php endif; ?>
 
     <table>
         <thead>
-            <th>Barcode</th>
-            <th>Naam</th>
-            <th>Verpakkingseenheid</th>
-            <th>Aantal aanwezig</th>
-            <th>Leverancier Info </th>
-            <th>Allergeen Info</th>
+            <th>Naam Product</th>
+            <th>Datum Laatste Levering</th>
+            <th>Aantal</th>
+            <th>Eerstvolgende Levering</th>
         </thead>
         <tbody>
             <?= $data['rows']; ?>

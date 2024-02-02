@@ -11,18 +11,21 @@
 </head>
   <body>
     
-    <h3><u><?= $data['title']; ?></u></h3>
+  <h3><u><?= $data['title']; ?></u></h3>
     
+    <?php if (isset($data['name'])) : ?>
+        <p>Name: [ <?= $data['name'] ?> ]</p>
+    <?php endif; ?>
 
+    <?php if (isset($data['barcode'])) : ?>
+        <p>Barcode: [ <?= $data['barcode'] ?> ]</p>
+    <?php endif; ?>
     <table>
         <thead>
-            <th>Barcode</th>
             <th>Naam</th>
-            <th>Verpakkingseenheid</th>
-            <th>Aantal aanwezig</th>
-            <th>Leverancier Info </th>
-            <th>Allergeen Info</th>
+            <th>Omschrijving</th>
         </thead>
+        
         <tbody>
             <?= $data['rows']; ?>
         </tbody>
