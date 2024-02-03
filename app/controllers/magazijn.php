@@ -47,8 +47,7 @@ class Magazijn extends BaseController
     public function InfoAllergie($Id = NULL) {
 
         $result = $this->magazijnModel->getAlergieInfo($Id);
-        // echo $Id;exit();
-        //var_dump($result);
+
     
         $rows = "";
     
