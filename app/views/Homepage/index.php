@@ -9,6 +9,6 @@
 </head>
 <body>
     <h3><?= $data['title']; ?></h3>
-    <a href="<?= URLROOT; ?>/Magazijn/overzichtMagazijn">Overzicht Magazijn</a> 
+    <a href="<?= URLROOT; ?>/Magazijn/overzichtMagazijn">Overzicht Magazijn Jamin</a> 
 </body>
 </html>

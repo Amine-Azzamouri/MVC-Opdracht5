@@ -5,7 +5,7 @@ class Homepage extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Homepage'
+            'title' => 'Opdracht 5 MVC'
         ];
     
         $this->view('Homepage/index', $data);
