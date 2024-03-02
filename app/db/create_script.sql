@@ -172,7 +172,8 @@ VALUES
     ('Astra Sweets', 'Jasper del Monte', 'L1029284315', '06-39398734'),
     ('Haribo', 'Sven Stalman', 'L1029324748', '06-24383291'),
     ('Basset', 'Joyce Stelterberg', 'L1023845773', '06-48293823'),
-    ('De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234');
+    ('De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234'),
+    ('Quality Street', 'Johan Nooij', 'L1029234586', '06-23458456');
 
 
 
