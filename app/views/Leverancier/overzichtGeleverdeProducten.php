@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     <link rel="stylesheet" href="<?= URLROOT; ?>/css/style.css">
     <link rel="shortcut icon" href="../public/img/jamin-logo2.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../public/img/jamin-logo2.png" type="image/x-icon">
 </head>
   <body>
     

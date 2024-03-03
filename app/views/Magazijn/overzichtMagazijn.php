@@ -26,6 +26,7 @@
         <tbody>
             <?= $data['rows']; ?>
         </tbody>
+        <button><a href="<?= URLROOT; ?>/Homepage/index.php/">Home</a></button>
     </table>
 
 

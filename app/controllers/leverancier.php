@@ -52,14 +52,14 @@ class Leverancier extends BaseController
                     <td>$geleverdeProductenInfo->VerpakkingsEenheid</td>
                     <td>$geleverdeProductenInfo->DatumLevering</td>
                     <td>
-                        <a href='" . URLROOT . "/Leverancier/{$geleverdeProductenInfo->ProductId}'>
+                        <a href='" . URLROOT . "/Leverancier/indexLevering/{$geleverdeProductenInfo->ProductId}'>
                             <i class='bi bi-plus-lg'></i>
                         </a>           
                     </tr>";
             }
 
             $data = [
-                'title' => 'Overzicht geleverdeProducten van Jamin',
+                'title' => 'Overzicht geleverde Producten van Jamin',
                 'LeverancierNaam' => $result[0]->LeverancierNaam,
                 'ContactPersoon' => $result[0]->ContactPersoon,
                 'LeverancierNummer' => $result[0]->LeverancierNummer,
@@ -70,7 +70,7 @@ class Leverancier extends BaseController
             $this->view('Leverancier/overzichtGeleverdeProducten', $data);
         } else {
             $data = [
-                'title' => 'Overzicht geleverdeProducten van Jamin',
+                'title' => 'Overzicht geleverde Producten van Jamin',
                 'LeverancierNaam' => '',
                 'ContactPersoon' => '',
                 'LeverancierNummer' => '',
@@ -80,11 +80,65 @@ class Leverancier extends BaseController
 
             echo '<script>
             setTimeout(function(){
-                window.location.href = "http://www.jamin.nl/Magazijn/overzichtMagazijn"; 
+                window.location.href = "http://www.jamin.nl/Leverancier/overzichtLeverancier"; 
             }, 4000); 
           </script>';
 
             $this->view('Leverancier/overzichtLeverancier', $data);
         }
     }
+
+    public function indexLevering($Id)
+    {
+        $result = $this->leverancierModel->getLeveringProduct($Id);
+        var_dump($result);
+        if ($result) {
+
+            $data = [
+                'title' => 'Levering Product',
+                'LeverancierNaam' => $result[0]->Naam,
+                'ContactPersoon' => $result[0]->ContactPersoon,
+                'Mobiel' => $result[0]->Mobiel,
+                'Id' => $Id,  // Add this line to pass the Id to the view
+
+            ];
+
+            $this->view('Leverancier/overzichtLevering', $data);
+        } else {
+            $data = [
+                'title' => 'error',
+                'LeverancierNaam' => '',
+                'ContactPersoon' => '',
+                'Mobiel' => '',
+                'Id' => $Id,  // Add this line to pass the Id to the view
+
+                
+                
+            ];
+
+       //     echo '<script>
+       //     setTimeout(function(){
+       //         window.location.href = "http://www.jamin.nl/Leverancier/overzichtLeverancier"; 
+       //     }, 4000); 
+       //   </script>';
+
+            $this->view('Leverancier/overzichtLevering', $data);
+        }
+    }
+
+    public function updateLevering($Id)
+    {
+        try {
+            $result = $this->leverancierModel->updateLeveringProduct($Id);
+            var_dump($result);
+        
+            // Load the view with the form
+            $this->view('Leverancier/overzichtLevering', $data);
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+    
+    
+    
 }

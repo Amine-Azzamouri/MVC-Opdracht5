@@ -67,4 +67,40 @@ class leverancierModel
 
         return $this->db->resultSet();
     }
+
+    public function getLeveringProduct($Id)
+    {
+
+        $sql = "SELECT Id, Naam, ContactPersoon, Mobiel
+        FROM Leverancier
+        WHERE
+        Id = :leverancierId;
+    ";
+        $this->db->query($sql);
+        $this->db->bind(":leverancierId", $Id, PDO::PARAM_INT);
+        return $this->db->resultSet();
+    }
+
+    public function updateLeveringProduct($Id)
+    {
+        try {
+            $sql = "UPDATE Magazijn m
+            JOIN ProductPerLeverancier ppl ON m.ProductId = ppl.ProductId
+            SET 
+                m.AantalAanwezig = :aantal_Productheden,
+                ppl.DatumLevering = :datum_Levering
+            WHERE m.ProductId = :productId; -- Add a condition to update specific records            
+            ";
+        
+            $this->db->query($sql);
+            $this->db->bind(':aantal_Productheden', $_POST['aantal_Productheden']);
+            $this->db->bind(':datum_Levering', $_POST['datum_Levering']);
+            $this->db->bind(':productId', $_POST['productId']);
+            $this->db->execute();
+            
+            return true; // Optionally, return a value indicating success
+        } catch (Exception $e) {
+            throw new Exception('Error updating levering: ' . $e->getMessage());
+        }
+    }
 }

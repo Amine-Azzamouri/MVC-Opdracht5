@@ -39,6 +39,8 @@
         <tbody>
             <?= $data['rows']; ?>
         </tbody>
+        <button><a href="<?= URLROOT; ?>/Homepage/index.php/">Home</a></button>
+        <button><a href="<?= URLROOT; ?>/Magazijn/overzichtMagazijn/">Terug</a></button>
     </table>
 
 
