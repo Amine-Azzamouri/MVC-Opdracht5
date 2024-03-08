@@ -25,8 +25,7 @@
         <p>Mobiel: [ <?= $data['Mobiel'] ?> ]</p>
     <?php endif; ?>
 
-    <form action="<?= URLROOT ?>/leverancier/updateLevering/" method="post">
-    <input type="hidden" name="Id" value="<?= $Id ?>">
+    <form action="<?= URLROOT ?>/leverancier/updateLevering/{$geleverdeProductenInfo->Id}" method="post">
         <table>
             <tr>
                 <td>AantalProductheden:</td>

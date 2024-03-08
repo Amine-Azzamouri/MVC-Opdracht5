@@ -42,7 +42,7 @@ class Leverancier extends BaseController
     public function geleverdeProducten($Id)
     {
         $result = $this->leverancierModel->getGeleverdeProductenInfo($Id);
-        //var_dump($result);
+        var_dump($result);
         if ($result) {
             $rows = "";
             foreach ($result as $geleverdeProductenInfo) {

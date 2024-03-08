@@ -93,9 +93,9 @@ class leverancierModel
             ";
         
             $this->db->query($sql);
-            $this->db->bind(':aantal_Productheden', $_POST['aantal_Productheden']);
-            $this->db->bind(':datum_Levering', $_POST['datum_Levering']);
-            $this->db->bind(':productId', $_POST['productId']);
+            $this->db->bind(':aantal_Productheden', $_POST['aantal_Productheden'], PDO::PARAM_INT);
+            $this->db->bind(':datum_Levering', $_POST['datum_Levering'], PDO::PARAM_STR);
+            $this->db->bind(':productId', $_POST['productId'], PDO::PARAM_INT);
             $this->db->execute();
             
             return true; // Optionally, return a value indicating success
