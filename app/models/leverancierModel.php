@@ -60,15 +60,15 @@ class leverancierModel
     JOIN
         Leverancier l ON pl.LeverancierId = l.Id
     WHERE
-        l.Id = :leverancierId;
-    ";
+        l.Id = :leverancierId
+;";
         $this->db->query($sql);
         $this->db->bind(":leverancierId", $Id, PDO::PARAM_INT);
 
         return $this->db->resultSet();
     }
 
-    public function getLeveringProduct($Id)
+    public function getSingleLeverancierInfo($Id)
     {
 
         $sql = "SELECT Id, Naam, ContactPersoon, Mobiel
@@ -81,21 +81,21 @@ class leverancierModel
         return $this->db->resultSet();
     }
 
-    public function updateLeveringProduct($Id)
+    public function updateLeveringProduct($post)
     {
         try {
             $sql = "UPDATE Magazijn m
             JOIN ProductPerLeverancier ppl ON m.ProductId = ppl.ProductId
             SET 
-                m.AantalAanwezig = :aantal_Productheden,
+                m.AantalAanwezig = m.AantalAanwezig + :aantal_Productheden,
                 ppl.DatumLevering = :datum_Levering
             WHERE m.ProductId = :productId; -- Add a condition to update specific records            
             ";
         
             $this->db->query($sql);
-            $this->db->bind(':aantal_Productheden', $_POST['aantal_Productheden'], PDO::PARAM_INT);
-            $this->db->bind(':datum_Levering', $_POST['datum_Levering'], PDO::PARAM_STR);
-            $this->db->bind(':productId', $_POST['productId'], PDO::PARAM_INT);
+            $this->db->bind(':aantal_Productheden', $post['aantal_Productheden'], PDO::PARAM_INT);
+            $this->db->bind(':datum_Levering', $post['datum_Levering'], PDO::PARAM_STR);
+            $this->db->bind(':productId', $post['productId'], PDO::PARAM_INT);
             $this->db->execute();
             
             return true; // Optionally, return a value indicating success

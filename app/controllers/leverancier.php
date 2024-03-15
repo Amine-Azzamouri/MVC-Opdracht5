@@ -42,7 +42,7 @@ class Leverancier extends BaseController
     public function geleverdeProducten($Id)
     {
         $result = $this->leverancierModel->getGeleverdeProductenInfo($Id);
-        var_dump($result);
+        //var_dump($result);
         if ($result) {
             $rows = "";
             foreach ($result as $geleverdeProductenInfo) {
@@ -52,7 +52,7 @@ class Leverancier extends BaseController
                     <td>$geleverdeProductenInfo->VerpakkingsEenheid</td>
                     <td>$geleverdeProductenInfo->DatumLevering</td>
                     <td>
-                        <a href='" . URLROOT . "/Leverancier/indexLevering/{$geleverdeProductenInfo->ProductId}'>
+                        <a href='" . URLROOT . "/Leverancier/indexLevering/{$geleverdeProductenInfo->LeverancierId}/{$geleverdeProductenInfo->ProductId}'>
                             <i class='bi bi-plus-lg'></i>
                         </a>           
                     </tr>";
@@ -88,10 +88,10 @@ class Leverancier extends BaseController
         }
     }
 
-    public function indexLevering($Id)
+    public function indexLevering($Id, $ProductId)
     {
-        $result = $this->leverancierModel->getLeveringProduct($Id);
-        var_dump($result);
+        $result = $this->leverancierModel->getSingleLeverancierInfo($Id);
+        //var_dump($result);
         if ($result) {
 
             $data = [
@@ -99,7 +99,8 @@ class Leverancier extends BaseController
                 'LeverancierNaam' => $result[0]->Naam,
                 'ContactPersoon' => $result[0]->ContactPersoon,
                 'Mobiel' => $result[0]->Mobiel,
-                'Id' => $Id,  // Add this line to pass the Id to the view
+                'Id' => $Id,
+                'ProductId' => $ProductId  // Add this line to pass the Id to the view
 
             ];
 
@@ -126,14 +127,16 @@ class Leverancier extends BaseController
         }
     }
 
-    public function updateLevering($Id)
+    public function updateLevering()
     {
+
+        //var_dump($_POST);
         try {
-            $result = $this->leverancierModel->updateLeveringProduct($Id);
-            var_dump($result);
-        
+            $result = $this->leverancierModel->updateLeveringProduct($_POST);
+            //var_dump($result);
+            header('Location: ' . URLROOT . '/leverancier/geleverdeProducten/' . $_POST['productId'] . '/' . $_POST['productId']);
             // Load the view with the form
-            $this->view('Leverancier/overzichtLevering', $data);
+            // $this->view('Leverancier/overzichtLevering', $data);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }

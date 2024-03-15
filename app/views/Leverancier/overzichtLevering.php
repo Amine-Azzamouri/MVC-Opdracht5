@@ -25,7 +25,7 @@
         <p>Mobiel: [ <?= $data['Mobiel'] ?> ]</p>
     <?php endif; ?>
 
-    <form action="<?= URLROOT ?>/leverancier/updateLevering/{$geleverdeProductenInfo->Id}" method="post">
+    <form action="<?= URLROOT ?>/leverancier/updateLevering" method="post" onsubmit="return validateDate()">
         <table>
             <tr>
                 <td>AantalProductheden:</td>
@@ -34,10 +34,25 @@
             <tr>
                 <td>Datum eerstvolgende levering:</td>
                 <td><input type="date" name="datum_Levering" id="datum_Levering"></td>
+                <input type="hidden" value="<?= $data['Id']; ?>" name="leverancierId">
+                <input type="hidden" value="<?= $data['ProductId']; ?>" name="productId">
             </tr>
         </table>
         <button type="submit">Submit</button>
     </form>
+
+    <script>
+        function validateDate() {
+            var inputDate = new Date(document.getElementById("datum_Levering").value);
+            var currentDate = new Date();
+
+            if (inputDate < currentDate) {
+                alert("Deze datum ligt in het verleden, voer alstublieft een nieuwe datum in.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
