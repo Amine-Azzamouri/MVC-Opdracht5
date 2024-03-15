@@ -89,7 +89,7 @@ class leverancierModel
             SET 
                 m.AantalAanwezig = m.AantalAanwezig + :aantal_Productheden,
                 ppl.DatumLevering = :datum_Levering
-            WHERE m.ProductId = :productId; -- Add a condition to update specific records            
+            WHERE m.ProductId = :productId;           
             ";
         
             $this->db->query($sql);
@@ -98,7 +98,7 @@ class leverancierModel
             $this->db->bind(':productId', $post['productId'], PDO::PARAM_INT);
             $this->db->execute();
             
-            return true; // Optionally, return a value indicating success
+            return true; 
         } catch (Exception $e) {
             throw new Exception('Error updating levering: ' . $e->getMessage());
         }
