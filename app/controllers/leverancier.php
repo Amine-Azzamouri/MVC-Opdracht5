@@ -27,7 +27,13 @@ class Leverancier extends BaseController
                         <td>
                             <a href='" . URLROOT . "/Leverancier/geleverdeProducten/$LeverancierInfo->LeverancierId'>
                                 <i class='bi bi-box'></i>
-                            </a>           
+                            </a>
+                        </td>
+                        <td>
+                        <a href='" . URLROOT . "/Leverancier/leverancierDetails/$LeverancierInfo->LeverancierId'>
+                            <i class='bi bi-pencil'></i>
+                        </a>
+                    </td>             
                       </tr>";
         }
         
@@ -142,6 +148,59 @@ class Leverancier extends BaseController
         }
     }
     
-    
-    
+    public function leverancierDetails($Id)
+    {
+        $result = $this->leverancierModel->getLeverancierDetails($Id);
+        //var_dump($result);
+        $rows = "";
+        foreach ($result as $leverancierDetails) {
+            $rows .= "<tr>
+                <td>$leverancierDetails->LeverancierNaam</td>
+                <td>$leverancierDetails->ContactPersoon</td>
+                <td>$leverancierDetails->LeverancierNummer</td>
+                <td>$leverancierDetails->Mobiel</td>
+                <td>$leverancierDetails->Straat</td>
+                <td>$leverancierDetails->Huisnummer</td>
+                <td>$leverancierDetails->Postcode</td>
+                <td>$leverancierDetails->Stad</td>           
+                </tr>";
+        }
+
+            $data = [
+            'title' => 'LeverancierDetails',
+            'rows' => $rows
+            ];
+
+     $this->view('Leverancier/leverancierDetails', $data);
+
+    }
+
+    public function wijzigLeverancierDetails()
+    {
+        //var_dump($result);
+ 
+            $data = [
+            'title' => 'LeverancierDetails',
+            ];
+
+     $this->view('Leverancier/wijzigLeverancierDetails', $data);
+
+    }
+
+    public function updateLeverancierDetails()
+    {
+
+        var_dump($_POST);
+        try {
+            $result = $this->leverancierModel->updateLeverancierDetails($_POST);
+            var_dump($result);
+            header('Location: ' . URLROOT . '/leverancier/wijzigLeverancierDetails/' . $_POST['Id'] );
+            // Load the view with the form
+            // $this->view('Leverancier/overzichtLevering', $data);
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
 }
+
+    

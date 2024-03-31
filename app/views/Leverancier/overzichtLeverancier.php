@@ -22,6 +22,7 @@
             <th>Mobiel</th>
             <th>Aantal Verschillende Producten</th>
             <th>Toon Producten</th>
+            <th>Leverancier Details</th>
         </thead>
         <tbody>
             <?= $data['rows']; ?>

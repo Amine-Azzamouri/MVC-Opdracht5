@@ -106,6 +106,14 @@ VALUES
     ('Kruis Drop', '8719587322265'),
     ('Zoute Ruitjes', '8719587323256');
 
+    -- Step: 06
+-- Goal: Create a new table Allergeen
+-- **********************************************************************************
+
+-- Version       Date:           Author:                     Description:
+-- *******       **********      ****************            ******************
+-- 01            1-8-2024      Amine Azzamouri           New
+-- **********************************************************************************/
 
 -- Drop table Allergeen
 DROP TABLE IF EXISTS Allergeen;
@@ -118,7 +126,7 @@ CREATE TABLE IF NOT EXISTS Allergeen (
 ) ENGINE=InnoDB;
 
 
--- Step: 09
+-- Step: 07
 -- Goal: Fill table Allergeen with data
 -- **********************************************************************************
 
@@ -135,8 +143,50 @@ VALUES
     ('Lactose', 'Dit product bevat lactose.'),
     ('Soja', 'Dit product bevat soja.');
 
+    -- Step: 8
+-- Goal: Create a new table Contact
+-- **********************************************************************************
+-- Version       Date:           Author:                     Description:
+-- *******       **********      ****************            ******************
+-- 01            3-22-2024      Amine Azzamouri           New
+-- **********************************************************************************/
 
--- Step: 12
+-- Drop table ProductPerLeverancier
+DROP TABLE IF EXISTS Contact;
+
+CREATE TABLE IF NOT EXISTS Contact (
+        Id INT NOT NULL AUTO_INCREMENT,
+    Straat VARCHAR(50) NOT NULL,
+    Huisnummer INT NOT NULL,
+    Postcode VARCHAR(10) NOT NULL,
+    Stad VARCHAR(50) NOT NULL,
+    PRIMARY KEY (Id)
+) ENGINE=InnoDB;
+
+
+-- Step: 9
+-- Goal: Fill table Contact with data
+-- **********************************************************************************
+
+-- Version       Date:           Author:                     Description:
+-- *******       **********      ****************            ******************
+-- 01            3-22-2024      Amine Azzamouri           New
+-- **********************************************************************************/
+
+INSERT INTO Contact (Straat, Huisnummer, Postcode, Stad)
+VALUES
+    ('Main Street', 123, '12345', 'Cityville'),
+    ('Oak Avenue', 456, '67890', 'Townsville'),
+    ('Cedar Lane', 789, '54321', 'Villagetown'),
+    ('Pine Ro   ad', 101, '09876', 'Hamletville'),
+    ('Elm Street', 112, '13579', 'Burgville'),
+    ('Maple Avenue', 131, '24680', 'Villageville');
+
+
+
+
+
+-- Step: 10
 -- Goal: Create a new table Leverancier
 -- **********************************************************************************
 -- Version       Date:           Author:                     Description:
@@ -153,11 +203,14 @@ CREATE TABLE IF NOT EXISTS Leverancier (
     ContactPersoon VARCHAR(50) NOT NULL,
     LeverancierNummer VARCHAR(20) NOT NULL,
     Mobiel VARCHAR(20) NOT NULL,
-    PRIMARY KEY (Id)
+    ContactId INT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (ContactId) REFERENCES Contact(Id)
 ) ENGINE=InnoDB;
 
 
--- Step: 13
+
+-- Step: 11
 -- Goal: Fill table Leverancier with data
 -- **********************************************************************************
 
@@ -166,18 +219,18 @@ CREATE TABLE IF NOT EXISTS Leverancier (
 -- 01            1-8-2024      Amine Azzamouri           New
 -- **********************************************************************************/
 
-INSERT INTO Leverancier (Naam, ContactPersoon, LeverancierNummer, Mobiel)
+INSERT INTO Leverancier (Naam, ContactPersoon, LeverancierNummer, Mobiel, ContactId)
 VALUES
-    ('Venco', 'Bert van Linge', 'L1029384719', '06-28493827'),
-    ('Astra Sweets', 'Jasper del Monte', 'L1029284315', '06-39398734'),
-    ('Haribo', 'Sven Stalman', 'L1029324748', '06-24383291'),
-    ('Basset', 'Joyce Stelterberg', 'L1023845773', '06-48293823'),
-    ('De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234'),
-    ('Quality Street', 'Johan Nooij', 'L1029234586', '06-23458456');
+    ('Venco', 'Bert van Linge', 'L1029384719', '06-28493827', 1),
+    ('Astra Sweets', 'Jasper del Monte', 'L1029284315', '06-39398734', 2),
+    ('Haribo', 'Sven Stalman', 'L1029324748', '06-24383291', 3),
+    ('Basset', 'Joyce Stelterberg', 'L1023845773', '06-48293823', 4),
+    ('De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234', 5),
+    ('Quality Street', 'Johan Nooij', 'L1029234586', '06-23458456', 6);
 
 
 
--- Step: 06
+-- Step: 12
 -- Goal: Create a new table ProductPerAllergeen
 -- **********************************************************************************
 -- Version       Date:           Author:                     Description:
@@ -197,7 +250,7 @@ CREATE TABLE IF NOT EXISTS ProductPerAllergeen (
     FOREIGN KEY (AllergeenId) REFERENCES Allergeen(Id)
 ) ENGINE=InnoDB;
 
--- Step: 07
+-- Step: 13
 -- Goal: Fill table ProductPerAllergeen with data
 -- **********************************************************************************
 
@@ -221,17 +274,7 @@ VALUES
     (13, 4),
     (13, 5);
 
-
--- Step: 08
--- Goal: Create a new table Allergeen
--- **********************************************************************************
--- Version       Date:           Author:                     Description:
--- *******       **********      ****************            ******************
--- 01            1-8-2024      Amine Azzamouri           New
--- **********************************************************************************/
-
-
--- Step: 10
+-- Step: 14
 -- Goal: Create a new table ProductPerLeverancier
 -- **********************************************************************************
 -- Version       Date:           Author:                     Description:
@@ -255,7 +298,7 @@ CREATE TABLE IF NOT EXISTS ProductPerLeverancier (
 ) ENGINE=InnoDB;
 
 
--- Step: 11
+-- Step: 15
 -- Goal: Fill table ProductPerLeverancier with data
 -- **********************************************************************************
 
