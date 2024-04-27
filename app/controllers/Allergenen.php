@@ -39,7 +39,7 @@ class Allergenen extends BaseController
         }
         
         $data = [
-            'title' => 'Overzicht Leverancier ',
+            'title' => 'Overzicht Allergenen',
             'rows' => $rows
         ];
 
