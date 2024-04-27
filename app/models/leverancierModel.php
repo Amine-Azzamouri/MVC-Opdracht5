@@ -64,7 +64,6 @@ class leverancierModel
 ;";
         $this->db->query($sql);
         $this->db->bind(":leverancierId", $Id, PDO::PARAM_INT);
-
         return $this->db->resultSet();
     }
 
@@ -103,4 +102,63 @@ class leverancierModel
             throw new Exception('Error updating levering: ' . $e->getMessage());
         }
     }
+
+    public function getLeverancierDetails($Id)
+    {
+
+        $sql = "SELECT 
+        l.Id AS LeverancierId,
+        l.Naam AS LeverancierNaam,
+        l.ContactPersoon,
+        l.LeverancierNummer,
+        l.Mobiel,
+        c.Straat,
+        c.Huisnummer,
+        c.Postcode,
+        c.Stad
+    FROM 
+        Leverancier l
+    JOIN 
+        Contact c ON l.ContactId = c.Id
+    WHERE
+        l.Id = :leverancierId;
+    ";
+        $this->db->query($sql);
+        $this->db->bind(":leverancierId", $Id, PDO::PARAM_INT);
+        return $this->db->resultSet();
+    }
+
+    public function updateLeverancierDetails($post)
+    {
+        try {
+            $sql = "UPDATE Leverancier l
+                    JOIN Contact c ON l.ContactId = c.Id
+                    SET 
+                        l.Naam = :naam,
+                        l.ContactPersoon = :contact_persoon,
+                        l.LeverancierNummer = :leverancier_nummer,
+                        l.Mobiel = :mobiel,
+                        c.Straat = :straatnaam,
+                        c.Huisnummer = :huisnummer,
+                        c.Postcode = :postcode,
+                        c.Stad = :stad";
+            
+            $this->db->query($sql);
+            $this->db->bind(':naam', $post['naam'], PDO::PARAM_STR);
+            $this->db->bind(':contact_persoon', $post['contact_persoon'], PDO::PARAM_STR);
+            $this->db->bind(':leverancier_nummer', $post['leverancier_nummer'], PDO::PARAM_STR);
+            $this->db->bind(':mobiel', $post['mobiel'], PDO::PARAM_STR);
+            $this->db->bind(':straatnaam', $post['straatnaam'], PDO::PARAM_STR);
+            $this->db->bind(':huisnummer', $post['huisnummer'], PDO::PARAM_STR);
+            $this->db->bind(':postcode', $post['postcode'], PDO::PARAM_STR);
+            $this->db->bind(':stad', $post['stad'], PDO::PARAM_STR);
+            $this->db->execute();
+            
+            return true; 
+        } catch (Exception $e) {
+            throw new Exception('Error updating leverancier details: ' . $e->getMessage());
+        }
+    }
+    
+
 }

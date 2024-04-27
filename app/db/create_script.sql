@@ -15,7 +15,6 @@ CREATE DATABASE IF NOT EXISTS `Jaminmagazijn`;
 -- Use database Jaminmagazijn
 USE `Jaminmagazijn`;
 
-
 -- Step: 02
 -- Goal: Create a new table Magazijn
 -- **********************************************************************************
@@ -28,38 +27,29 @@ USE `Jaminmagazijn`;
 DROP TABLE IF EXISTS Magazijn;
 
 CREATE TABLE IF NOT EXISTS Magazijn (
-    Id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    ProductId VARCHAR(50) NOT NULL,
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ProductId INT NOT NULL,
     VerpakkingsEenheid VARCHAR(50) NOT NULL,
-    AantalAanwezig INT NULL,
-    PRIMARY KEY (Id)
+    AantalAanwezig INT NULL
 ) ENGINE=InnoDB;
 
-
--- Step: 03
--- Goal: Fill table Magazijn with data
--- **********************************************************************************
-
--- Version       Date:           Author:                     Description:
--- *******       **********      ****************            ******************
--- 01            1-8-2024      Amine Azzamouri           New
--- **********************************************************************************/
-
+-- Insert data into table Magazijn
 INSERT INTO Magazijn (ProductId, VerpakkingsEenheid, AantalAanwezig)
 VALUES
-    ('1', '5', 453),
-    ('2', '2,5', 400),
-    ('3', '5', 1),
-    ('4', '1', 800),
-    ('5', '3', 234),
-    ('6', '2', 345),
-    ('7', '1', 795),
-    ('8', '10', 233),
-    ('9', '2,5', 123),
-    ('10', '3', NULL),
-    ('11', '2', 367),
-    ('12', '1', 467),
-    ('13', '5', 20);
+    (1, '5', 453),
+    (2, '2,5', 400),
+    (3, '5', 1),
+    (4, '1', 800),
+    (5, '3', 234),
+    (6, '2', 345),
+    (7, '1', 795),
+    (8, '10', 233),
+    (9, '2,5', 123),
+    (10, '3', NULL),
+    (11, '2', 367),
+    (12, '1', 467),
+    (13, '5', 20),
+    (14, '5', 299);
 
 
 -- Step: 04
@@ -74,22 +64,12 @@ VALUES
 DROP TABLE IF EXISTS Product;
 
 CREATE TABLE IF NOT EXISTS Product (
-    Id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Naam VARCHAR(20) NOT NULL,
-    Barcode VARCHAR(20) NOT NULL,
-    PRIMARY KEY (Id)
+    Barcode VARCHAR(20) NOT NULL
 ) ENGINE=InnoDB;
 
-
--- Step: 05
--- Goal: Fill table Product with data
--- **********************************************************************************
-
--- Version       Date:           Author:                     Description:
--- *******       **********      ****************            ******************
--- 01            1-8-2024      Amine Azzamouri           New
--- **********************************************************************************/
-
+-- Insert data into table Product
 INSERT INTO Product (Naam, Barcode)
 VALUES
     ('Mintnopjes', '8719587231278'),
@@ -104,29 +84,27 @@ VALUES
     ('Winegums', '8719587327527'),
     ('Drop Munten', '8719587322345'),
     ('Kruis Drop', '8719587322265'),
-    ('Zoute Ruitjes', '8719587323256');
+    ('Zoute Ruitjes', '8719587323256'),
+    ('Drop ninja’s', '8719587323277');
 
-
--- Drop table Allergeen
-DROP TABLE IF EXISTS Allergeen;
-
-CREATE TABLE IF NOT EXISTS Allergeen (
-    Id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    Naam VARCHAR(20) NOT NULL,
-    Omschrijving VARCHAR(100) NOT NULL,
-    PRIMARY KEY (Id)
-) ENGINE=InnoDB;
-
-
--- Step: 09
--- Goal: Fill table Allergeen with data
+-- Step: 06
+-- Goal: Create a new table Allergeen
 -- **********************************************************************************
-
 -- Version       Date:           Author:                     Description:
 -- *******       **********      ****************            ******************
 -- 01            1-8-2024      Amine Azzamouri           New
 -- **********************************************************************************/
 
+-- Drop table Allergeen
+DROP TABLE IF EXISTS Allergeen;
+
+CREATE TABLE IF NOT EXISTS Allergeen (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Naam VARCHAR(20) NOT NULL,
+    Omschrijving VARCHAR(100) NOT NULL
+) ENGINE=InnoDB;
+
+-- Insert data into table Allergeen
 INSERT INTO Allergeen (Naam, Omschrijving)
 VALUES
     ('Gluten', 'Dit product bevat gluten.'),
@@ -135,8 +113,36 @@ VALUES
     ('Lactose', 'Dit product bevat lactose.'),
     ('Soja', 'Dit product bevat soja.');
 
+-- Step: 08
+-- Goal: Create a new table Contact
+-- **********************************************************************************
+-- Version       Date:           Author:                     Description:
+-- *******       **********      ****************            ******************
+-- 01            3-22-2024      Amine Azzamouri           New
+-- **********************************************************************************/
 
--- Step: 12
+-- Drop table Contact
+DROP TABLE IF EXISTS Contact;
+
+CREATE TABLE IF NOT EXISTS Contact (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Straat VARCHAR(50) NOT NULL,
+    Huisnummer INT NOT NULL,
+    Postcode VARCHAR(10) NOT NULL,
+    Stad VARCHAR(50) NOT NULL
+) ENGINE=InnoDB;
+
+-- Insert data into table Contact
+INSERT INTO Contact (Straat, Huisnummer, Postcode, Stad)
+VALUES
+    ('Van Gilslaan', 34, '1045CB', 'Hilvarenbeek'),
+    ('Den Dolderpad', 2, '1067RC', 'Utrecht'),
+    ('Fredo Raalteweg', 257, '1236OP', 'Nijmegen'),
+    ('Bertrand Russellhof', 21, '2034AP', 'Den Haag'),
+    ('Leon van Bonstraat', 213, '145XC', 'Lunteren'),
+    ('Bea van Lingenlaan', 234, '2197FG', 'Sint Pancras');
+
+-- Step: 10
 -- Goal: Create a new table Leverancier
 -- **********************************************************************************
 -- Version       Date:           Author:                     Description:
@@ -148,36 +154,27 @@ VALUES
 DROP TABLE IF EXISTS Leverancier;
 
 CREATE TABLE IF NOT EXISTS Leverancier (
-    Id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Naam VARCHAR(50) NOT NULL,
     ContactPersoon VARCHAR(50) NOT NULL,
     LeverancierNummer VARCHAR(20) NOT NULL,
     Mobiel VARCHAR(20) NOT NULL,
-    PRIMARY KEY (Id)
+    ContactId INT,
+    FOREIGN KEY (ContactId) REFERENCES Contact(Id)
 ) ENGINE=InnoDB;
 
-
--- Step: 13
--- Goal: Fill table Leverancier with data
--- **********************************************************************************
-
--- Version       Date:           Author:                     Description:
--- *******       **********      ****************            ******************
--- 01            1-8-2024      Amine Azzamouri           New
--- **********************************************************************************/
-
-INSERT INTO Leverancier (Naam, ContactPersoon, LeverancierNummer, Mobiel)
+-- Insert data into table Leverancier
+INSERT INTO Leverancier (Naam, ContactPersoon, LeverancierNummer, Mobiel, ContactId)
 VALUES
-    ('Venco', 'Bert van Linge', 'L1029384719', '06-28493827'),
-    ('Astra Sweets', 'Jasper del Monte', 'L1029284315', '06-39398734'),
-    ('Haribo', 'Sven Stalman', 'L1029324748', '06-24383291'),
-    ('Basset', 'Joyce Stelterberg', 'L1023845773', '06-48293823'),
-    ('De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234'),
-    ('Quality Street', 'Johan Nooij', 'L1029234586', '06-23458456');
+    ('Venco', 'Bert van Linge', 'L1029384719', '06-28493827', 1),
+    ('Astra Sweets', 'Jasper del Monte', 'L1029284315', '06-39398734', 2),
+    ('Haribo', 'Sven Stalman', 'L1029324748', '06-24383291', 3),
+    ('Basset', 'Joyce Stelterberg', 'L1023845773', '06-48293823', 4),
+    ('De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234', 5),
+    ('Quality Street', 'Johan Nooij', 'L1029234586', '06-23458456', 6),
+    ('Hom Ken Food', 'Hom Ken', 'L1029234599', '06-23458477', NULL);
 
-
-
--- Step: 06
+-- Step: 12
 -- Goal: Create a new table ProductPerAllergeen
 -- **********************************************************************************
 -- Version       Date:           Author:                     Description:
@@ -189,23 +186,14 @@ VALUES
 DROP TABLE IF EXISTS ProductPerAllergeen;
 
 CREATE TABLE IF NOT EXISTS ProductPerAllergeen (
-    Id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    ProductId TINYINT UNSIGNED NOT NULL,
-    AllergeenId TINYINT UNSIGNED NOT NULL,
-    PRIMARY KEY (Id),
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ProductId INT NOT NULL,
+    AllergeenId INT NOT NULL,
     FOREIGN KEY (ProductId) REFERENCES Product(Id),
     FOREIGN KEY (AllergeenId) REFERENCES Allergeen(Id)
 ) ENGINE=InnoDB;
 
--- Step: 07
--- Goal: Fill table ProductPerAllergeen with data
--- **********************************************************************************
-
--- Version       Date:           Author:                     Description:
--- *******       **********      ****************            ******************
--- 01            1-8-2024      Amine Azzamouri           New
--- **********************************************************************************/
-
+-- Insert data into table ProductPerAllergeen
 INSERT INTO ProductPerAllergeen (ProductId, AllergeenId)
 VALUES
     (1, 2),
@@ -219,19 +207,10 @@ VALUES
     (12, 4),
     (13, 1),
     (13, 4),
-    (13, 5);
+    (13, 5),
+    (14, 5);
 
-
--- Step: 08
--- Goal: Create a new table Allergeen
--- **********************************************************************************
--- Version       Date:           Author:                     Description:
--- *******       **********      ****************            ******************
--- 01            1-8-2024      Amine Azzamouri           New
--- **********************************************************************************/
-
-
--- Step: 10
+-- Step: 14
 -- Goal: Create a new table ProductPerLeverancier
 -- **********************************************************************************
 -- Version       Date:           Author:                     Description:
@@ -243,27 +222,17 @@ VALUES
 DROP TABLE IF EXISTS ProductPerLeverancier;
 
 CREATE TABLE IF NOT EXISTS ProductPerLeverancier (
-    Id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    LeverancierId TINYINT UNSIGNED NOT NULL,
-    ProductId TINYINT UNSIGNED NOT NULL,
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    LeverancierId INT NOT NULL,
+    ProductId INT NOT NULL,
     DatumLevering DATE NOT NULL,
     Aantal TINYINT UNSIGNED NOT NULL,
-    DatumEerstVolgendeLevering DATE NULL,
-    PRIMARY KEY (Id),
+    DatumEerstVolgendeLevering DATE,
     FOREIGN KEY (LeverancierId) REFERENCES Leverancier(Id),
     FOREIGN KEY (ProductId) REFERENCES Product(Id)
 ) ENGINE=InnoDB;
 
-
--- Step: 11
--- Goal: Fill table ProductPerLeverancier with data
--- **********************************************************************************
-
--- Version       Date:           Author:                     Description:
--- *******       **********      ****************            ******************
--- 01            1-8-2024      Amine Azzamouri           New
--- **********************************************************************************/
-
+-- Insert data into table ProductPerLeverancier
 INSERT INTO ProductPerLeverancier (LeverancierId, ProductId, DatumLevering, Aantal, DatumEerstVolgendeLevering)
 VALUES
     (1, 1, '2023-04-09', 23, '2023-04-16'),
@@ -282,5 +251,5 @@ VALUES
     (5, 11, '2023-04-10', 47, '2023-04-17'),
     (5, 11, '2023-04-19', 60, '2023-04-26'),
     (5, 12, '2023-04-11', 45, NULL), 
-    (5, 13, '2023-04-12', 23, NULL); 
-
+    (5, 13, '2023-04-12', 23, NULL), 
+    (7, 14, '2023-04-14', 20, NULL);
